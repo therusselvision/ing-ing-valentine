@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#ff2e6f"/>
+  <title>Ing-Ing 💘</title>
+  <style>
+    :root{
+      --bg1:#fff0f6;
+      --bg2:#ffe3ec;
+      --card: rgba(255,255,255,.86);
+      --ink:#3a0b1a;
+      --pink:#ff4d8d;
+      --hot:#ff2e6f;
+      --soft:#ffb3c7;
+      --shadow: 0 18px 55px rgba(255, 46, 111, .18);
+      --border: rgba(255, 46, 111, .18);
+    }
+
+    *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink);
+      background:
+        radial-gradient(1100px 650px at 18% 10%, #ffd6e7 0%, transparent 60%),
+        radial-gradient(900px 600px at 82% 16%, #ffe0ea 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    /* sparkle layer */
+    .sparkle{
+      position:fixed; inset:0; pointer-events:none; opacity:.45;
+      background-image:
+        radial-gradient(circle at 10% 16%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 52% 24%, rgba(255,255,255,.75) 0 1.7px, transparent 3px),
+        radial-gradient(circle at 78% 42%, rgba(255,255,255,.7) 0 1.9px, transparent 3px),
+        radial-gradient(circle at 26% 72%, rgba(255,255,255,.7) 0 1.9px, transparent 3px),
+        radial-gradient(circle at 68% 84%, rgba(255,255,255,.75) 0 2px, transparent 3px);
+      filter: blur(.2px);
+      animation: twinkle 4.5s ease-in-out infinite;
+    }
+    @keyframes twinkle{
+      0%,100%{opacity:.30}
+      50%{opacity:.55}
+    }
+
+    /* floating hearts background */
+    .hearts{
+      position:fixed; inset:0; pointer-events:none;
+    }
+    .heart{
+      position:absolute;
+      width:18px; height:18px;
+      transform: rotate(45deg);
+      background: rgba(255, 46, 111, .20);
+      border-radius: 4px;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 8px 18px rgba(255,46,111,.18));
+      will-change: transform, opacity;
+    }
+    .heart:before, .heart:after{
+      content:"";
+      position:absolute;
+      width:18px; height:18px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart:before{left:-9px; top:0}
+    .heart:after{top:-9px; left:0}
+
+    @keyframes floatUp{
+      from{ transform: translateY(25vh) rotate(45deg); opacity:0 }
+      12%{opacity:.9}
+      to{ transform: translateY(-130vh) rotate(45deg); opacity:0 }
+    }
+
+    /* balloons */
+    .balloons{ position:fixed; inset:0; pointer-events:none; }
+    .balloon{
+      position:absolute;
+      width:64px; height:78px;
+      border-radius: 50% 50% 48% 48%;
+      box-shadow: var(--shadow);
+      animation: bob 4s ease-in-out infinite;
+      opacity:.88;
+      will-change: transform;
+    }
+    .balloon:after{
+      content:"";
+      position:absolute;
+      left:50%; bottom:-10px;
+      width:14px; height:12px;
+      transform: translateX(-50%);
+      background: inherit;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      filter: brightness(.95);
+    }
+    .string{
+      position:absolute;
+      left:50%; top:76px;
+      width:2px; height:130px;
+      transform: translateX(-50%);
+      background: rgba(90, 10, 30, .22);
+      border-radius:2px;
+    }
+    @keyframes bob{
+      0%,100%{ transform: translateY(0) }
+      50%{ transform: translateY(-14px) }
+    }
+
+    /* layout */
+    .wrap{
+      position:relative;
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding: 18px;
+    }
+
+    /* card optimized for phone */
+    .card{
+      width:min(760px, 94vw);
+      background: var(--card);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 26px;
+      padding: 22px 18px 18px;
+      backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
+    }
+    .ribbon{
+      position:absolute;
+      inset:-46px -46px auto auto;
+      width:170px; height:170px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.65), transparent 45%),
+                  linear-gradient(135deg, rgba(255,46,111,.22), rgba(255,77,141,.06));
+      transform: rotate(18deg);
+      border-radius: 26px;
+    }
+
+    .title{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      margin: 6px 0 8px;
+    }
+    .badge{
+      width:46px; height:46px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ff5a96, #ff2e6f);
+      display:grid; place-items:center;
+      color:white;
+      box-shadow: 0 12px 30px rgba(255,46,111,.25);
+      user-select:none;
+      flex: 0 0 auto;
+    }
+
+    h1{
+      font-size: clamp(26px, 5.4vw, 44px);
+      line-height: 1.06;
+      margin:0;
+      letter-spacing:-.02em;
+    }
+
+    .sub{
+      text-align:center;
+      margin: 0 auto 14px;
+      max-width: 58ch;
+      font-size: clamp(14px, 3.7vw, 18px);
+      line-height: 1.35;
+      opacity:.86;
+      padding: 0 6px;
+    }
+
+    .buttons{
+      position:relative;
+      height: 150px; /* bigger for phone */
+      margin-top: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 14px;
+      padding: 6px 4px;
+      touch-action: manipulation;
+    }
+
+    button{
+      border:0;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      letter-spacing:.02em;
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+      user-select:none;
+      font-size: 16px;
+      min-width: 130px;
+    }
+    .yes{
+      background: linear-gradient(180deg, #ff5a96, #ff2e6f);
+      color:white;
+      box-shadow: 0 16px 40px rgba(255,46,111,.28);
+    }
+    .yes:hover{ transform: translateY(-2px) scale(1.02); filter:saturate(1.1); }
+    .yes:active{ transform: translateY(0) scale(.99); }
+
+    /* NO button runs away and is NOT clickable */
+    .no{
+      position:absolute;
+      background: rgba(58,11,26,.08);
+      color: rgba(58,11,26,.88);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      border: 1px solid rgba(58,11,26,.12);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .hint{
+      text-align:center;
+      font-size: 13px;
+      opacity:.72;
+      margin-top: 6px;
+      padding: 0 10px;
+    }
+    .footer{
+      text-align:center;
+      font-size: 12px;
+      opacity:.65;
+      margin-top: 10px;
+    }
+
+    /* overlay */
+    .overlay{
+      position:fixed; inset:0;
+      display:none;
+      place-items:center;
+      background: rgba(255, 240, 246, .70);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+      padding: 18px;
+    }
+    .overlay.show{ display:grid; }
+
+    .modal{
+      width:min(720px, 94vw);
+      border-radius: 26px;
+      background: rgba(255,255,255,.93);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .modal h2{
+      margin: 6px 0 8px;
+      font-size: clamp(22px, 5vw, 40px);
+      letter-spacing:-.02em;
+    }
+    .modal p{
+      margin: 0 auto 14px;
+      max-width: 60ch;
+      opacity:.88;
+      line-height:1.45;
+      font-size: clamp(14px, 3.7vw, 18px);
+    }
+    .chiprow{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin: 10px 0 8px;
+    }
+    .chip{
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,46,111,.10);
+      border:1px solid rgba(255,46,111,.16);
+      font-weight:800;
+      font-size:13px;
+    }
+    .close{
+      background: rgba(58,11,26,.08);
+      color: rgba(58,11,26,.9);
+      border:1px solid rgba(58,11,26,.12);
+      box-shadow:none;
+    }
+    .close:hover{ transform: translateY(-1px); }
+
+    /* confetti hearts */
+    .confetti{
+      position:absolute; inset:0; pointer-events:none;
+      overflow:hidden;
+    }
+    .confetti i{
+      position:absolute;
+      width:12px; height:12px;
+      transform: rotate(45deg);
+      background: rgba(255,46,111,.25);
+      border-radius:3px;
+      animation: fall linear infinite;
+      will-change: transform, opacity;
+    }
+    .confetti i:before,.confetti i:after{
+      content:""; position:absolute; width:12px; height:12px; background:inherit; border-radius:50%;
+    }
+    .confetti i:before{ left:-6px; top:0}
+    .confetti i:after{ top:-6px; left:0}
+    @keyframes fall{
+      from{ transform: translateY(-20vh) rotate(45deg); opacity:0 }
+      10%{opacity:1}
+      to{ transform: translateY(120vh) rotate(45deg); opacity:0 }
+    }
+
+    /* reduced motion support */
+    @media (prefers-reduced-motion: reduce){
+      .sparkle, .heart, .balloon, .confetti i{ animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkle" aria-hidden="true"></div>
+  <div class="balloons" aria-hidden="true" id="balloons"></div>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+
+  <main class="wrap">
+    <section class="card" role="main">
+      <div class="ribbon" aria-hidden="true"></div>
+
+      <div class="title">
+        <div class="badge" aria-hidden="true">💘</div>
+        <h1>Ing-Ing, will you be my Valentine? 💕</h1>
+      </div>
+
+      <p class="sub">
+        One button leads to happiness. The other button… runs away from commitment. 😭
+      </p>
+
+      <div class="buttons" id="arena" aria-label="Valentine buttons">
+        <button class="yes" id="yesBtn">YES 💞</button>
+        <button class="no" id="noBtn" aria-disabled="true" title="Ing-Ing pls 😭">NO 🙅</button>
+      </div>
+
+      <div class="hint">Try to choose “NO”… if you can catch it. 😌</div>
+      <div class="footer">From Russel 💌</div>
+    </section>
+  </main>
+
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+      <h2 id="modalTitle">YAAAAY, ING-ING! 💖</h2>
+      <p>
+        You just made my day, Ing-Ing. <br/>
+        Officially ikaw na ang Valentine ko. 💕 <br/>
+        Cute pics, snacks, and matching “us” energy na ni. 😌
+      </p>
+
+      <div class="chiprow" aria-label="Date ideas">
+        <span class="chip">🌹 date?</span>
+        <span class="chip">🍫 chocolate?</span>
+        <span class="chip">🎈 balloons?</span>
+        <span class="chip">📸 pics?</span>
+      </div>
+
+      <button class="close" id="closeBtn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Helper
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    // Background decoration (balloons + hearts)
+    const balloons = document.getElementById('balloons');
+    const hearts = document.getElementById('hearts');
+
+    const balloonColors = ['#ffb3c7', '#ffc6d6', '#ff7aa8', '#ffd1dc', '#ff4d8d'];
+    const balloonCount = 10;
+    for (let i = 0; i < balloonCount; i++) {
+      const b = document.createElement('div');
+      b.className = 'balloon';
+      b.style.left = rand(-6, 96) + 'vw';
+      b.style.top  = rand(62, 96) + 'vh';
+      b.style.animationDuration = rand(3.3, 5.4) + 's';
+      const c = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+      b.style.background = `
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(255,255,255,0) 35%),
+        linear-gradient(180deg, rgba(255,255,255,.15), rgba(0,0,0,.06)),
+        ${c}
+      `;
+      const s = document.createElement('div');
+      s.className = 'string';
+      b.appendChild(s);
+      balloons.appendChild(b);
+    }
+
+    const heartCount = 28;
+    for (let i = 0; i < heartCount; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = rand(0, 100) + 'vw';
+      h.style.bottom = rand(-10, 90) + 'vh';
+      h.style.animationDuration = rand(8, 18) + 's';
+      h.style.animationDelay = rand(-18, 0) + 's';
+      const size = rand(10, 22);
+      h.style.width = size + 'px';
+      h.style.height = size + 'px';
+      h.style.background = `rgba(255, 46, 111, ${rand(.12,.28)})`;
+      hearts.appendChild(h);
+    }
+
+    // Valentine buttons
+    const arena = document.getElementById('arena');
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeBtn');
+    const confetti = document.getElementById('confetti');
+
+    // Place NO initially
+    function placeNoInitial() {
+      const rect = arena.getBoundingClientRect();
+      // Start a bit to the right on most screens
+      const x = rect.width * 0.62;
+      const y = rect.height * 0.30;
+      noBtn.style.left = x + 'px';
+      noBtn.style.top  = y + 'px';
+    }
+
+    // Move NO away from pointer (stays inside arena)
+    function moveNoAway(pointerX, pointerY) {
+      const rect = arena.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+      const btnW = btnRect.width;
+      const btnH = btnRect.height;
+
+      const localX = pointerX - rect.left;
+      const localY = pointerY - rect.top;
+
+      const dx = (btnRect.left + btnW/2) - pointerX;
+      const dy = (btnRect.top  + btnH/2) - pointerY;
+      const mag = Math.max(1, Math.hypot(dx, dy));
+
+      const ux = dx / mag;
+      const uy = dy / mag;
+
+      const jump = rand(95, 155);
+      let newX = localX + ux * jump + rand(-42, 42);
+      let newY = localY + uy * jump + rand(-34, 34);
+
+      // clamp inside arena with padding
+      newX = Math.max(8, Math.min(rect.width  - btnW - 8, newX));
+      newY = Math.max(8, Math.min(rect.height - btnH - 8, newY));
+
+      noBtn.style.left = newX + 'px';
+      noBtn.style.top  = newY + 'px';
+    }
+
+    // Run away when pointer gets close (mouse)
+    function onApproach(e) {
+      const r = noBtn.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top  + r.height / 2;
+      const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+
+      // Slightly bigger range for phones with trackpads / small screens
+      if (dist < 130) moveNoAway(e.clientX, e.clientY);
+    }
+
+    // Touch: whenever user taps inside arena, NO jumps away
+    function onTouchStart(e) {
+      const t = e.touches[0];
+      moveNoAway(t.clientX, t.clientY);
+    }
+
+    // YES -> show overlay with confetti hearts
+    function makeConfetti() {
+      confetti.innerHTML = '';
+      const count = 52;
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement('i');
+        piece.style.left = rand(0, 100) + '%';
+        piece.style.animationDuration = rand(2.4, 4.9) + 's';
+        piece.style.animationDelay = rand(0, 1.1) + 's';
+        piece.style.opacity = rand(.55, 1);
+        piece.style.background = `rgba(255, 46, 111, ${rand(.18,.35)})`;
+        confetti.appendChild(piece);
+      }
+    }
+
+    yesBtn.addEventListener('click', () => {
+      makeConfetti();
+      overlay.classList.add('show');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.remove('show');
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('show');
+    });
+
+    // Initialize + listeners
+    placeNoInitial();
+    window.addEventListener('resize', placeNoInitial);
+
+    arena.addEventListener('mousemove', onApproach);
+    arena.addEventListener('touchstart', onTouchStart, { passive: true });
+
+    // Extra chaos on desktop hover near NO
+    noBtn.addEventListener('mouseenter', (e) => moveNoAway(e.clientX, e.clientY));
+  </script>
+</body>
+</html>
